@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
+from .models import Film
 
 def all_films(request):
-    return render(request, 'films.html')
+    films = Film.objects.all()
+    return render(request, 'films.html', {'films': films})
