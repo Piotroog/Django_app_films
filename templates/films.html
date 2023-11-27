@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,9 +6,18 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>There will be films</h2>
-    {% for film in films %}
-    <p>{{ film }}</p>
-    {% endfor %}
+    {% if films|length == 0 %}
+        <h2>ANY FILMS IN BASE</h2>
+
+    {% else %}
+
+        <h2> Quantity of films: {{ films|length }}</h2>
+
+        {% for film in films %}
+            <h3>{{film}}</h3>
+            <p>{{film.description}}</p>
+        {% endfor %}
+    {% endif %}
+
 </body>
 </html>
