@@ -23,3 +23,14 @@ def edit_film(request, id):
         return redirect(all_films)
 
     return render(request, 'form_film.html', {'form': form})
+
+def delete_film(request, id):
+    film = get_object_or_404(Film, pk=id)
+
+    if request.method == "POST":
+        film.delete()
+        return redirect(all_films)
+
+
+
+    return render(request, 'confirm.html', {'film': film})
