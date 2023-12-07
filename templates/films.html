@@ -6,6 +6,8 @@
     <title>Title</title>
 </head>
 <body>
+
+    <a href="{% url 'new' %}">New film</a>
     {% if films|length == 0 %}
         <h2>ANY FILMS IN BASE</h2>
 
@@ -16,6 +18,8 @@
         {% for film in films %}
             <h3>{{film}}</h3>
             <p>{{film.description}}</p>
+            <a href="{% url 'edit' film.id %}">Edit</a>
+            <a href="{% url 'delete' film.id %}">Delete</a>
         {% endfor %}
     {% endif %}
 
