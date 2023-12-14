@@ -1,14 +1,15 @@
 {% extends 'main.html' %}
+{% load bootstrap %}
 
 {% block title %}
     LOGIN
 {% endblock %}
 
 {% block website %}
-
+    <i class="fa-solid fa-user"></i>
     <form method="post">
         {% csrf_token %}
-        {{form}}
+        {{form|bootstrap}}
         <button type="submit">LOG IN</button>
     </form>
 {% endblock %}
