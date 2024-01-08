@@ -6,10 +6,15 @@
 {% endblock %}
 
 {% block website %}
-    <i class="fa-solid fa-user"></i>
-    <form method="post">
+    <div class="card" style="width: 26rem;">
+  <div class="card-body">
+    <h5 class="card-title">LOG IN</h5>
+            <form method="post">
         {% csrf_token %}
         {{form|bootstrap}}
-        <button type="submit">LOG IN</button>
+                <br>
+        <button class="btn btn-success" type="submit">LOG IN <i class="fa-solid fa-right-to-bracket"></i></button>
     </form>
+  </div>
+</div>
 {% endblock %}
