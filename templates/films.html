@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block website %}
-
+     <div class="jumbotron">
     {% if user.is_authenticated %}
-        Hello {{ user.username }}
-        <a href="{% url 'logout' %}">LOGOUT</a>
+         <h1 class="display-4"> Hello {{ user.username }} </h1>
+        <a href="{% url 'logout' %}"  class="btn btn-warning">LOGOUT <i  class="fas fa-sign-out-alt"></i></a>
     {% else %}
-        <a href="{% url 'login' %}">LOGIN</a>
+        <a href="{% url 'login' %}"  class="btn btn-success">LOGIN <i class="fas fa-sign-in-alt"></i></a>
     {% endif %}
-
-    <a href="{% url 'new' %}">New film</a>
+ </div>
+    <a href="{% url 'new' %}" class="btn btn-info" >New film <i class="fa-solid fa-plus"></i></a>
 
     {% if films|length == 0 %}
         <h2>NO FILMS IN DATABASE</h2>
@@ -21,11 +21,20 @@
         <h2>Quantity of films: {{ films|length }}</h2>
 
         {% for film in films %}
-            <h3>{{ film }}</h3>
-            <p>{{ film.description }}</p>
-            <a href="{% url 'edit' film.id %}">Edit</a>
-            <a href="{% url 'delete' film.id %}">Delete</a>
+            <div class="card" style="width: 26rem;">
+              <div class="card-body">
+                  <div class="row">
+                     <div class="col-9">
+                        <h5 class="card-title">{{ film }}</h5>
+                  </div>
+                      <div class="col-3">
+                              <a href="{% url 'edit' film.id %}"<i class="fa-solid fa-2x fa-pen-to-square"></i></a>
+                <a href="{% url 'delete' film.id %}"><i class="fa-solid fa-2x fa-trash"></i></a>
+              </div>
+            </div>
+                  <p class="card-text">{{ film.description }}</p>
+                   </div>
+                 </div>
         {% endfor %}
     {% endif %}
-
 {% endblock %}
