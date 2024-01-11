@@ -5,10 +5,15 @@
 {% endblock %}
 
 {% block website %}
-  <h1>Confirm delete film: {{film.title}}</h1>
-  <form method="post">
+<div class="card" style="width: 32rem;">
+        <div class="card-body">
+            <h5 class="card-title">Confirm delete film: {{film.title}}</h5>
+             <form method="post">
       {% csrf_token %}
-      <button type="submit">DELETE</button>
+      <button class="btn btn-success" type="submit">DELETE </></button>
+                 <button class="btn btn-danger" type="button" onclick="history.back();">BACK <i class="fa-solid fa-undo"></i></button>
   </form>
-<a href="{%url 'all' %}">back</a>
+        </div>
+        </div>
+
 {% endblock %}
