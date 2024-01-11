@@ -1,15 +1,22 @@
 {% extends 'main.html' %}
 {% load bootstrap %}
+
 {% block title %}
     Film list
 {% endblock %}
 
 {% block website %}
+    <div class="card" style="width: 32rem;">
+        <div class="card-body">
+            <h5 class="card-title">FILM FORM</h5>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <br>
+                <button class="btn btn-success" type="submit">APPLY <i class="fa-solid fa-right-to-bracket"></i></button>
+               <button onclick="location.href='{% url 'all' %}'" class="btn btn-success">BACK</button>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form|bootstrap }}
-        <button type="submit">APPLY</button>
-    </form>
-    <a href="{%url 'all' %}">back</a>
+            </form>
+        </div>
+    </div>
 {% endblock %}
