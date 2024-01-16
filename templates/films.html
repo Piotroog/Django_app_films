@@ -1,5 +1,6 @@
 {% extends 'main.html' %}
-
+{% load static %}
+<link href="{% static 'my_css.css' %}" rel="stylesheet">
 {% block title %}
     Film list
 {% endblock %}
@@ -23,6 +24,7 @@
         {% for film in films %}
             <div class="card" style="width: 26rem;">
               <div class="card-body">
+                  <img src="/media/{{film.poster}}" class="film-poster" style="width: 150px;">
                   <div class="row">
                      <div class="col-9">
                         <h5 class="card-title">{{ film }}</h5>
