@@ -23,3 +23,9 @@ class Film(models.Model):
     bonus = models.OneToOneField(MoreInfo, on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
         return self.title + '(' + str(self.year) + ')'
+
+
+class Raiting(models.Model):
+    review = models.TextField(default="", blank=True)
+    stars = models.PositiveSmallIntegerField(default=5)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
