@@ -29,3 +29,8 @@ class Raiting(models.Model):
     review = models.TextField(default="", blank=True)
     stars = models.PositiveSmallIntegerField(default=5)
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
+
+class Actor(models.Model):
+    name = models.CharField(max_length=32)
+    surname = models.CharField(max_length=32)
+    films = models.ManyToManyField(Film)
