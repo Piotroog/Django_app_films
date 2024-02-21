@@ -1,28 +1,45 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Film
-from .forms import FilmForm
+from .models import Film, MoreInfo
+from .forms import FilmForm, MoreInfoForm
+
 def all_films(request):
     films = Film.objects.all()
     return render(request, 'films.html', {'films': films})
 
 def new_film(request):
-    form = FilmForm(request.POST or None, request.FILES or None)
+    if request.method == 'POST':
+        film_form = FilmForm(request.POST, request.FILES)
+        more_info_form = MoreInfoForm(request.POST)
 
-    if form.is_valid():
-        form.save()
-        return redirect(all_films)
+        if film_form.is_valid() and more_info_form.is_valid():
+            film = film_form.save(commit=False)
+            more_info = more_info_form.save()
+            film.bonus = more_info
+            film.save()
+            return redirect(all_films)
+    else:
+        film_form = FilmForm()
+        more_info_form = MoreInfoForm()
 
-    return render(request, 'form_film.html', {'form': form})
+    return render(request, 'form_film.html', {'film_form': film_form, 'more_info_form': more_info_form})
 
 def edit_film(request, id):
     film = get_object_or_404(Film, pk=id)
-    form = FilmForm(request.POST or None, request.FILES or None, instance=film)
+    if request.method == 'POST':
+        film_form = FilmForm(request.POST, request.FILES, instance=film)
+        more_info_form = MoreInfoForm(request.POST, instance=film.bonus)
 
-    if form.is_valid():
-        form.save()
-        return redirect(all_films)
+        if film_form.is_valid() and more_info_form.is_valid():
+            film = film_form.save(commit=False)
+            more_info = more_info_form.save()
+            film.bonus = more_info
+            film.save()
+            return redirect(all_films)
+    else:
+        film_form = FilmForm(instance=film)
+        more_info_form = MoreInfoForm(instance=film.bonus)
 
-    return render(request, 'form_film.html', {'form': form})
+    return render(request, 'form_film.html', {'film_form': film_form, 'more_info_form': more_info_form})
 
 def delete_film(request, id):
     film = get_object_or_404(Film, pk=id)
@@ -30,7 +47,5 @@ def delete_film(request, id):
     if request.method == "POST":
         film.delete()
         return redirect(all_films)
-
-
 
     return render(request, 'confirm.html', {'film': film})
