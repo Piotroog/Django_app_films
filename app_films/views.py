@@ -1,6 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Film, MoreInfo
 from .forms import FilmForm, MoreInfoForm
+from rest_framework import viewsets
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
+
+class UserView(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 def all_films(request):
     films = Film.objects.all()
